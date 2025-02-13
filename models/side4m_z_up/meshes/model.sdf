@@ -1,0 +1,40 @@
+<?xml version='1.0'?>
+<sdf version='1.6'>
+    <model name="cityscape">
+    <static>true</static>
+    <link name="cityscapelink">
+    
+    <collision name="collision">
+        <pose>5.0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>model://side4m_z_up/meshes/side4m_z_up.stl</uri>
+            <scale>0.001 0.001 0.001</scale>
+          </mesh>
+        </geometry>
+        <max_contacts>10</max_contacts>
+        <surface>
+          <bounce/>
+          <friction>
+            <ode/>
+          </friction>
+          <contact>
+            <ode/>
+          </contact>
+        </surface>
+      </collision>
+
+      <visual name="visual">
+        <pose>5.0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>model://side4m_z_up/meshes/side4m_z_up.stl</uri>
+            <scale>0.001 0.001 0.001</scale>
+          </mesh>
+        </geometry>
+
+      </visual>
+
+    </link>
+    </model>
+</sdf>

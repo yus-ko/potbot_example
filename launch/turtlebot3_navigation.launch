@@ -32,7 +32,7 @@
   <arg name="initial_pose_y"                  default="$(arg y)"/>
   <arg name="initial_pose_yaw"                default="$(arg yaw)"/>
   <arg name="file_urdf"                       default="$(find turtlebot3_description)/urdf/turtlebot3_$(arg model).urdf.xacro"/>
-  <arg name="file_map"                        default="$(find potbot_description)/maps/garage.yaml"/>
+  <arg name="file_map"                        default="$(find potbot_example)/maps/empty.yaml"/>
   <arg name="file_rviz"                       default="$(find potbot_example)/rviz/navigation.rviz"/>
   <arg name="file_database"                   default="~/.ros/$(arg db).db"/>
   <arg name="reset_database"                  default="$(arg reset)"/>

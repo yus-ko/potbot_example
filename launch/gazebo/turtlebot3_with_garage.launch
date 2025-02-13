@@ -1,6 +1,6 @@
 <launch>
 	<env name="GAZEBO_MODEL_PATH" value="$(find potbot_example)/models:$(optenv GAZEBO_MODEL_PATH)"/>
-  <arg name="world_name" default="$(find potbot_example)/worlds/willowgarage_2.world"/>
+  <arg name="world_name" default="$(find potbot_example)/worlds/willowgarage_3.world"/>
 
   <include file="$(find potbot_example)/launch/gazebo/gazebo.launch">
     <arg name="world_name"      value="$(arg world_name)"/>
@@ -12,10 +12,10 @@
     <arg name="laser_visual"    value="false"/>
     <arg name="imu_visual"      value="false"/>
     <arg name="camera_visual"   value="true"/>
-    <arg name="x_pos"           value="5"/>
-    <arg name="y_pos"           value="10"/>
+    <arg name="x_pos"           value="2"/>
+    <arg name="y_pos"           value="0"/>
     <arg name="z_pos"           value="0.01"/>
-    <arg name="yaw"             value="3.14"/>
+    <arg name="yaw"             value="1.57"/>
   </include>
 
 </launch>

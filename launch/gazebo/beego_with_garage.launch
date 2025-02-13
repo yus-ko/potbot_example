@@ -1,5 +1,10 @@
 <launch>
-	<arg name="world_name" default="$(find potbot_description)/worlds/willowgarage.world"/>
+	<!-- <arg name="world_name" default="$(find potbot_description)/worlds/willowgarage.world"/> -->
+  <!-- <arg name="world_name" default="$(find potbot_example)/worlds/willowgarage_3.world"/> -->
+  <!-- <arg name="world_name" default="$(find potbot_example)/worlds/samidare_4m.world"/> -->
+  <arg name="world_name" default="$(find potbot_example)/worlds/samidare_3m.world"/>
+  <!-- <arg name="world_name" default="$(find potbot_example)/worlds/samidare_2.3m.world"/> -->
+  
 
   <include file="$(find potbot_example)/launch/gazebo/gazebo.launch">
     <arg name="world_name" value="$(arg world_name)"/>
@@ -11,8 +16,12 @@
     <arg name="model"           value="$(find potbot_example)/urdf/beego2.urdf.xacro"/>
     <arg name="laser_visual"    value="false"/>
     <arg name="camera_visual"   value="true"/>
+    <arg name="x_pos"           value="0"/>
+    <arg name="y_pos"           value="0"/>
+    <arg name="z_pos"           value="0.01"/>
+    <arg name="yaw"             value="0"/>
   </include>
-  <rosparam>
+  <!-- <rosparam>
     robot_4:      
       pan:
         type: position_controllers/JointPositionController
@@ -25,7 +34,7 @@
       joint_state_controller:
         type: joint_state_controller/JointStateController
         publish_rate: 10  
-  </rosparam>
+  </rosparam> -->
   <node name="controller_spawner_pan" pkg="controller_manager" type="spawner" respawn="false" output="screen" ns="/robot_4" args="pan tilt joint_state_controller"/>
 
 </launch>
