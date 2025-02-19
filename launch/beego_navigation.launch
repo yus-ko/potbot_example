@@ -83,9 +83,9 @@
       <arg name="file_global_costmap_params"    value="$(find potbot_example)/config/navigation/global_costmap_params.yaml"/>
       <arg name="file_local_costmap_params"     value="$(find potbot_example)/config/navigation/local_costmap_params.yaml"/>
       <arg name="file_move_base_params"         value="$(find potbot_example)/config/navigation/move_base_params.yaml"/>
-      <!-- <arg name="file_local_planner_params"     value="$(find potbot_example)/config/navigation/dwa_local_planner_params.yaml"/> -->
+      <arg name="file_local_planner_params"     value="$(find potbot_example)/config/navigation/dwa_local_planner_params.yaml"/>
       <!-- <arg name="file_local_planner_params"     value="$(find potbot_example)/config/navigation/pure_pursuit.yaml"/> -->
-      <arg name="file_local_planner_params"     value="$(find potbot_example)/config/navigation/personal_space_dwa.yaml"/>
+      <!-- <arg name="file_local_planner_params"     value="$(find potbot_example)/config/navigation/personal_space_dwa.yaml"/> -->
       <!-- <arg name="file_local_planner_params"     value="$(find potbot_example)/config/navigation/optimal_path_follower.yaml"/> -->
       <!-- <arg name="file_local_planner_params"     value="$(find potbot_example)/config/navigation/traditional_apf.yaml"/> -->
 
