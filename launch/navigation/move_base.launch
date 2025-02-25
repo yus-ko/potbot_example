@@ -6,6 +6,9 @@
   <arg name="max_linear_velocity"           default="0.5"/>
   <arg name="max_angular_velocity"          default="1.0"/>
   <arg name="topic_scan"                    default="scan"/>
+  <arg name="topic_rgb"                     default="camera/rgb/image_raw"/>
+  <arg name="topic_info"                    default="camera/rgb/camera_info"/>
+  <arg name="topic_depth"                   default="camera/depth/image_raw"/>
   <arg name="topic_depth_points"            default="camera/depth/points"/>
   <arg name="topic_odom"                    default="odom"/>
   <arg name="topic_cmd"                     default="cmd_vel"/>
@@ -60,7 +63,9 @@
     <param name="local_costmap/obstacle_layer/camera/sensor_frame"  value=""/>
     <param name="local_costmap/state_layer/lidar/topic"             value="$(arg topic_scan)"/>
     <param name="local_costmap/state_layer/lidar/sensor_frame"      value=""/>
-    <param name="local_costmap/state_layer/camera/topic"            value="$(arg topic_depth_points)"/>
+    <param name="local_costmap/state_layer/camera/topic"            value="$(arg topic_rgb)_invalid"/>
+    <param name="local_costmap/state_layer/camera/topic_depth"      value="$(arg topic_depth)_invalid"/>
+    <param name="local_costmap/state_layer/camera/topic_info"       value="$(arg topic_info)_invalid"/>
     <param name="local_costmap/state_layer/camera/sensor_frame"     value=""/>
     <param name="local_costmap/robot_base_frame"                    value="$(arg frame_id_robot_base)"/>
     

@@ -1,0 +1,23 @@
+<launch>
+  <arg name="mode" default="reset"/>
+
+  <group if = "$(eval mode == 'reset')">
+    <node pkg="dynamic_reconfigure" type="dynparam" name="dynparam_1" args="set /robot_1/follow_marker publish_command false"/>
+    <node pkg="dynamic_reconfigure" type="dynparam" name="dynparam_2" args="set /robot_2/follow_marker publish_command false"/>
+    <node pkg="dynamic_reconfigure" type="dynparam" name="dynparam_3" args="set /robot_3/follow_marker publish_command false"/>
+    <node pkg="potbot_example" type="simulation.py" name="sim"/>
+  </group>
+
+  <group if = "$(eval mode == 'start')">
+    <node pkg="dynamic_reconfigure" type="dynparam" name="dynparam_1" args="set /robot_1/follow_marker publish_command true"/>
+    <node pkg="dynamic_reconfigure" type="dynparam" name="dynparam_2" args="set /robot_2/follow_marker publish_command true"/>
+    <node pkg="dynamic_reconfigure" type="dynparam" name="dynparam_3" args="set /robot_3/follow_marker publish_command true"/>
+    <include file="$(find controller_tutorial)/launch/pub_goals.launch">
+      <arg name="yaml_name" value="multi_robot_1.yaml"/>
+    </include>
+    <node pkg="rostopic" type="rostopic" name="start_pub" args="pub -1 /start std_msgs/Empty" />
+  </group>
+  <!-- <param name="/robot_1/follow_marker/publish_command" value="false"/> -->
+  
+
+</launch>

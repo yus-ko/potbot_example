@@ -146,6 +146,9 @@
     <arg name="max_angular_velocity"            value="$(arg max_angular_velocity)"/>
     <arg name="move_forward_only"               value="$(arg move_forward_only)"/>
     <arg name="topic_scan"                      value="$(arg topic_scan)"/>
+    <arg name="topic_rgb"                       value="$(arg topic_rgb)"/>
+    <arg name="topic_info"                      value="$(arg topic_info)"/>
+    <arg name="topic_depth"                     value="$(arg topic_depth)"/>
     <arg name="topic_depth_points"              value="$(arg topic_depth_points)"/>
     <arg name="topic_odom"                      value="$(arg topic_odom)"/>
     <arg name="topic_cmd"                       value="$(arg topic_cmd)"/>

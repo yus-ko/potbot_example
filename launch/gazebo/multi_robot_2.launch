@@ -11,7 +11,7 @@
     <arg name="y_pos"           value="4.0"/>
     <arg name="z_pos"           value="0.01"/>
     <arg name="yaw"             value="-1.57"/>
-    <arg name="model"           value="waffle_pi"/>
+    <arg name="model"           value="waffle"/>
     <arg name="laser_visual"    value="false"/>
     <arg name="camera_visual"   value="false"/>
   </include>
