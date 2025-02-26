@@ -34,7 +34,7 @@
     <!-- <param name="base_local_planner" value="base_local_planner/TrajectoryPlannerROS"/> -->
 
     <rosparam file="$(arg file_local_planner_params)" command="load" />
-    <param name="PotbotLocalPlanner/controller/frame_id_global" value="$(arg frame_id_global)"/>
+    <param name="PotbotLocalPlanner/controller/frame_id_global" value="$(arg frame_id_odom)"/>
     <param name="PotbotLocalPlanner/path_planner_name" value="potbot_nav/APF"/>
 
     <!-- <param name="base_local_planner" value="potbot_nav/PotbotLocalPlanner"/> -->

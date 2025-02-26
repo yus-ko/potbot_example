@@ -40,7 +40,7 @@
       <arg name="resampling_period"             value="1.0"/>
     </include>
 
-    <node pkg="map_server" type="map_server" name="map_server" args="$(find potbot_example)/maps/TDU_011310_0.yaml"/>
+    <node pkg="map_server" type="map_server" name="map_server" args="$(find potbot_example)/maps/TDU_0113_3.yaml"/>
 
   </group>
 

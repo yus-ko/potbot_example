@@ -103,6 +103,7 @@
       <arg name="file_move_base_params"         value="$(find potbot_example)/config/navigation/move_base_params.yaml"/>
       <!-- <arg name="file_local_planner_params"     value="$(find potbot_example)/config/navigation/dwa_local_planner_params.yaml"/> -->
       <arg name="file_local_planner_params"     value="$(find potbot_example)/config/navigation/pure_pursuit.yaml"/>
+      <!-- <arg name="file_local_planner_params"     value="$(find potbot_example)/config/navigation/optimal_path_follower.yaml"/> -->
 
       <arg name="file_amcl"                     value="$(find potbot_example)/config/navigation/amcl.yaml"/>
       <arg name="file_gmapping"                 value="$(find potbot_example)/config/navigation/gmapping.yaml"/>
