@@ -41,10 +41,10 @@ catkin build potbot_example
 
 gazeboが実行されます
 ```bash
-roslaunch potbot_example turtlebot3_with_garage.launch
+roslaunch potbot_example beego_with_garage.launch
 ```
 
 rvizを使用するナビゲーションプログラムが実行されます
 ```bash  
-roslaunch potbot_example turtlebot3_navigation.launch
+roslaunch potbot_example beego_navigation.launch
 ```
