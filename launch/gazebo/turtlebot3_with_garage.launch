@@ -1,6 +1,6 @@
 <launch>
 	<env name="GAZEBO_MODEL_PATH" value="$(find potbot_example)/models:$(optenv GAZEBO_MODEL_PATH)"/>
-  <arg name="world_name" default="$(find potbot_example)/worlds/willowgarage_ped.world"/>
+  <arg name="world_name" default="$(find potbot_example)/worlds/willowgarage_1.world"/>
 
   <include file="$(find potbot_example)/launch/gazebo/gazebo.launch">
     <arg name="world_name"      value="$(arg world_name)"/>

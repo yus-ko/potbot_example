@@ -1,6 +1,6 @@
 <launch>
   <arg name="rviz"                            default="true"/>
-  <arg name="loc"                             default="odom"/> <!-- odom, amcl rtabmap -->
+  <arg name="loc"                             default="odom"/> <!-- odom, amcl, rtabmap, vmcl -->
     <arg name="slam"                            default="none"/> <!-- none, gmapping, rtabmap -->
   <arg name="x"                               default="0"/>
   <arg name="y"                               default="0"/>
@@ -15,7 +15,7 @@
   <arg name="multi_robot"                     default="robot_5"/>
   <arg name="use_rviz"                        default="$(arg rviz)"/>
   <arg name="use_fusion"                      default="false"/>
-  <arg name="method_localization"             default="$(arg loc)"/> <!-- odom, amcl rtabmap -->
+  <arg name="method_localization"             default="$(arg loc)"/> <!-- odom, amcl, rtabmap, vmcl -->
   <arg name="method_slam"                     default="$(arg slam)"/> <!-- none, gmapping, rtabmap -->
   <arg name="frame_id_global"                 default="map"/>
   <arg name="frame_id_odom"                   default="$(arg multi_robot)/odom"/>
