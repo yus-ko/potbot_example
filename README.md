@@ -31,7 +31,7 @@ git clone https://github.com/yus-ko/multiple_robots_slam
 ```
 ```bash
 cd ~/catkin_ws
-catkin build turtlebot3 megarover_samples vs_rover_options_description megarover_description multi_turtlebot_gazebo
+catkin build megarover_samples vs_rover_options_description megarover_description multi_turtlebot_gazebo
 ```
 
 ```bash
