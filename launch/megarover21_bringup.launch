@@ -13,9 +13,13 @@
   <arg name="initial_pose_yaw"            default="0"/>
   <arg name="file_urdf"                   default="$(find potbot_example)/urdf/megarover21.urdf.xacro"/>
 
-  <include file="$(find mynt_eye_ros_wrapper)/launch/mynteye.launch">
-    <arg name="mynteye" value="$(arg frame_id_camera)"/>
-  </include>
+  <arg name="camera_product"              default="mynteye"/>
+
+  <group if = "$(eval camera_product == 'mynteye')">
+    <include file="$(find mynt_eye_ros_wrapper)/launch/mynteye.launch">
+      <arg name="mynteye" value="$(arg frame_id_camera)"/>
+    </include>
+  </group>
 
   <include file="$(find potbot_example)/launch/env/remote.launch">
     <arg name="urdf_file"               value="$(find xacro)/xacro --inorder '$(arg file_urdf)'"/>
