@@ -2,8 +2,6 @@
 
 # Installation
 
-はじめに https://github.com/yus-ko/potbot_core をビルドしてください
-
 次に以下のコマンドで必要なパッケージをインストールしてください
 
 ```bash
@@ -30,7 +28,7 @@ catkin build turtlebot3 megarover_samples vs_rover_options_description megarover
 
 ```bash
 cd ~/catkin_ws/src
-git clone https://github.com/kitasame/potbot_example.git
+git clone -b personal_space https://github.com/kitasame/potbot_example.git
 ```
 ```bash
 cd ~/catkin_ws
