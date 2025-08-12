@@ -17,7 +17,7 @@ sudo apt install ros-$ROS_DISTRO-gmapping ros-$ROS_DISTRO-map-server ros-$ROS_DI
 sudo apt install ros-$ROS_DISTRO-gazebo-ros ros-$ROS_DISTRO-gazebo-ros-control ros-$ROS_DISTRO-ros-control ros-$ROS_DISTRO-ros-controllers ros-$ROS_DISTRO-turtlebot3 -y
 mkdir -p ~/.gazebo/models && cd ~/.gazebo/models
 git clone https://github.com/osrf/gazebo_models
-mv ~/.gazebo/models/gazebo_models/* ~/.gazebo/models/ && sudo rm -r ~/.gazebo/models/gazebo_models/
+mv ~/.gazebo/models/gazebo_models/* ~/.gazebo/models/ && rm -rf ~/.gazebo/models/gazebo_models/
 ```
 
 <!-- git clone https://github.com/ROBOTIS-GIT/turtlebot3_msgs -b $ROS_DISTRO-devel
