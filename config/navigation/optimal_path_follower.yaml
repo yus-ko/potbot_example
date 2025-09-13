@@ -2,9 +2,17 @@ base_local_planner: potbot_nav/PotbotLocalPlanner
 
 PotbotLocalPlanner:
   controller_name: potbot_nav/OPF
-  
+  recover_distance: 0.01
+
   controller:
     optimization_method: all_search
+    max_linear_velocity: 0.2
+    min_linear_velocity: -0.2
+    max_angular_velocity: 1.5
+    min_angular_velocity: -1.5
+    stop_margin_distance: 0.1
+
+  recover:
     max_linear_velocity: 0.2
     min_linear_velocity: -0.2
     max_angular_velocity: 1.5
