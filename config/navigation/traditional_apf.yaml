@@ -1,9 +1,0 @@
-base_local_planner: potbot_nav/PotbotLocalPlanner
-
-PotbotLocalPlanner:
-  controller_name: potbot_nav/TAPF
-  
-  controller:
-    max_linear_velocity: 0.2
-    max_angular_velocity: 1.5
-

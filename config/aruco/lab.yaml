@@ -1,4 +1,0 @@
-markers: 
-  - {id: 1, frame_id: "map", pose: {x: 1.0, y: 0.0, z: 0.28, roll: 0.0, pitch: 0.0, yaw: 3.14}}
-  - {id: 2, frame_id: "map", pose: {x: 6.2, y: 0.0, z: 0.28, roll: 0.0, pitch: 0.0, yaw: 3.14}}
-  - {id: 3, frame_id: "map", pose: {x: -0.6, y: 2.3, z: 0.28, roll: 0.0, pitch: 0.0, yaw: 0.0}}
