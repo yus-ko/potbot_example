@@ -4,7 +4,11 @@ project(potbot_example)
 find_package(ament_cmake REQUIRED)
 
 install(DIRECTORY
-  launch params rviz worlds
+  launch 
+  maps
+  params 
+  rviz 
+  worlds
   DESTINATION share/${PROJECT_NAME}
 )
 
