@@ -27,10 +27,15 @@ def generate_launch_description():
 
     nav2_launch_file_dir = os.path.join(get_package_share_directory('nav2_bringup'), 'launch')
 
+    # rviz_config_dir = os.path.join(
+    #     get_package_share_directory('turtlebot3_navigation2'),
+    #     'rviz',
+    #     'tb3_navigation2.rviz')
+
     rviz_config_dir = os.path.join(
-        get_package_share_directory('turtlebot3_navigation2'),
+        potbot_example_dir,
         'rviz',
-        'tb3_navigation2.rviz')
+        'navigation2.rviz')
 
     return LaunchDescription([
         DeclareLaunchArgument(
