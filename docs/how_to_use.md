@@ -161,4 +161,4 @@ PotbotLocalPlanner:
 
 rosbagファイルは`~/.ros/potbot_example/bags/`に保存されます。ファイル名は`<launchファイル名>_<日時>_runNN.bag`です。記録対象には`/clock`、`/tf`、`/tf_static`、制御対象ロボットの`odom`、`scan`、`cmd_vel`、`goal`、`map`、move_base関連トピック、各障害物ロボットの`odom`、`scan`、`cmd_vel`、深度点群トピックが含まれます。
 
-各回は`/<target-robot>/move_base/result`を受信すると終了し、次の回へ進みます。途中で停止する場合は`Ctrl-C`を押してください。停止時は、指定した各障害物ロボットへゼロ速度を送信してから、rosbag record、ナビゲーション、gazeboを終了します。
+各回は`/<target-robot>/move_base/result`を受信すると終了し、次の回へ進みます。resultを受信できない場合は、ゴールパブリッシュ後120秒でその回を終了します。途中で停止する場合は`Ctrl-C`を押してください。停止時は、指定した各障害物ロボットへゼロ速度を送信してから、rosbag record、ナビゲーション、gazeboを終了します。

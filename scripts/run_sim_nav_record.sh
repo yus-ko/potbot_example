@@ -7,6 +7,7 @@ readonly NAVIGATION_LAUNCH="turtlebot3_navigation.launch"
 readonly GAZEBO_WAIT_SEC=10
 readonly NAVIGATION_WAIT_SEC=10
 readonly ROSBAG_WAIT_SEC=2
+readonly RESULT_WAIT_TIMEOUT_SEC=120
 
 launch_file=""
 count=""
@@ -157,6 +158,7 @@ validate_environment() {
   require_command rosbag
   require_command rospack
   require_command awk
+  require_command timeout
 
   local pkg_path
   pkg_path="$(package_path)" || die "potbot_example package was not found by rospack"
@@ -290,8 +292,18 @@ publish_goal() {
 }
 
 wait_for_goal_result() {
-  echo "Waiting for /${target_robot}/move_base/result. Press Ctrl-C to stop."
-  rostopic echo -n 1 "/${target_robot}/move_base/result" >/dev/null
+  echo "Waiting up to ${RESULT_WAIT_TIMEOUT_SEC}s for /${target_robot}/move_base/result. Press Ctrl-C to stop."
+  if timeout "${RESULT_WAIT_TIMEOUT_SEC}s" rostopic echo -n 1 "/${target_robot}/move_base/result" >/dev/null; then
+    return 0
+  fi
+
+  local status="$?"
+  if [[ "${status}" -eq 124 ]]; then
+    echo "Timed out waiting for /${target_robot}/move_base/result."
+    return 0
+  fi
+
+  return "${status}"
 }
 
 run_once() {
