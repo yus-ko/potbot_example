@@ -7,7 +7,7 @@ readonly NAVIGATION_LAUNCH="turtlebot3_navigation.launch"
 readonly GAZEBO_WAIT_SEC=10
 readonly NAVIGATION_WAIT_SEC=10
 readonly ROSBAG_WAIT_SEC=2
-readonly RESULT_WAIT_TIMEOUT_SEC=120
+readonly DEFAULT_RESULT_WAIT_TIMEOUT_SEC=300
 
 launch_file=""
 count=""
@@ -15,6 +15,7 @@ target_robot="${DEFAULT_TARGET_ROBOT}"
 goal_x=""
 goal_y=""
 goal_yaw=""
+result_wait_timeout="${DEFAULT_RESULT_WAIT_TIMEOUT_SEC}"
 obstacle_specs=()
 
 gazebo_pid=""
@@ -29,6 +30,7 @@ Usage:
   run_sim_nav_record.sh --launch <launch file> --count <count> \
     --goal-x <x> --goal-y <y> --goal-yaw <yaw> \
     [--target-robot <namespace>] \
+    [--timeout <seconds>] \
     [--obstacle <namespace>:<linear>:<angular>]...
 
 Example:
@@ -36,6 +38,7 @@ Example:
     --launch multi_robot_4.launch \
     --count 1 \
     --target-robot robot_0 \
+    --timeout 300 \
     --goal-x 2.0 --goal-y -2.0 --goal-yaw 0.0 \
     --obstacle robot_1:0.2:0.5 \
     --obstacle robot_2:0.1:-0.3 \
@@ -45,6 +48,7 @@ Arguments:
   --launch         Gazebo launch file name, such as multi_robot_1.launch.
   --count          Number of full simulation runs.
   --target-robot   Target robot namespace. Default: robot_0.
+  --timeout        Maximum seconds to wait for move_base result. Default: 300.
   --goal-x         Goal x position in the map frame.
   --goal-y         Goal y position in the map frame.
   --goal-yaw       Goal yaw in radians.
@@ -100,6 +104,11 @@ parse_args() {
         goal_yaw="$2"
         shift 2
         ;;
+      --timeout)
+        (($# >= 2)) || die "--timeout requires a value"
+        result_wait_timeout="$2"
+        shift 2
+        ;;
       --obstacle)
         (($# >= 2)) || die "--obstacle requires a value"
         obstacle_specs+=("$2")
@@ -133,6 +142,7 @@ validate_args() {
   is_number "${goal_x}" || die "--goal-x must be a number"
   is_number "${goal_y}" || die "--goal-y must be a number"
   is_number "${goal_yaw}" || die "--goal-yaw must be a number"
+  is_positive_integer "${result_wait_timeout}" || die "--timeout must be a positive integer"
 
   for spec in "${obstacle_specs[@]}"; do
     IFS=":" read -r namespace linear angular extra <<<"${spec}"
@@ -292,8 +302,8 @@ publish_goal() {
 }
 
 wait_for_goal_result() {
-  echo "Waiting up to ${RESULT_WAIT_TIMEOUT_SEC}s for /${target_robot}/move_base/result. Press Ctrl-C to stop."
-  if timeout "${RESULT_WAIT_TIMEOUT_SEC}s" rostopic echo -n 1 "/${target_robot}/move_base/result" >/dev/null; then
+  echo "Waiting up to ${result_wait_timeout}s for /${target_robot}/move_base/result. Press Ctrl-C to stop."
+  if timeout "${result_wait_timeout}s" rostopic echo -n 1 "/${target_robot}/move_base/result" >/dev/null; then
     return 0
   fi
 

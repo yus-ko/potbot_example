@@ -130,6 +130,7 @@ PotbotLocalPlanner:
   --launch multi_robot_4.launch \
   --count 1 \
   --target-robot robot_0 \
+  --timeout 300 \
   --goal-x 2.0 \
   --goal-y -2.0 \
   --goal-yaw 0.0 \
@@ -145,6 +146,7 @@ PotbotLocalPlanner:
 | `--launch` | gazeboで起動するlaunchファイル名を指定します。例: `multi_robot_1.launch` |
 | `--count` | シミュレーション全体の実行回数を指定します。各回でgazebo、ナビゲーション、rosbag recordを起動し直します。 |
 | `--target-robot` | 制御対象ロボットのネームスペースを指定します。省略時は`robot_0`です。 |
+| `--timeout` | ゴールパブリッシュ後に`/<target-robot>/move_base/result`を待つ最大秒数を指定します。省略時は300秒です。 |
 | `--goal-x` | mapフレーム上のゴール位置x座標を指定します。 |
 | `--goal-y` | mapフレーム上のゴール位置y座標を指定します。 |
 | `--goal-yaw` | mapフレーム上のゴール姿勢yaw角[rad]を指定します。 |
@@ -161,4 +163,4 @@ PotbotLocalPlanner:
 
 rosbagファイルは`~/.ros/potbot_example/bags/`に保存されます。ファイル名は`<launchファイル名>_<日時>_runNN.bag`です。記録対象には`/clock`、`/tf`、`/tf_static`、制御対象ロボットの`odom`、`scan`、`cmd_vel`、`goal`、`map`、move_base関連トピック、各障害物ロボットの`odom`、`scan`、`cmd_vel`、深度点群トピックが含まれます。
 
-各回は`/<target-robot>/move_base/result`を受信すると終了し、次の回へ進みます。resultを受信できない場合は、ゴールパブリッシュ後120秒でその回を終了します。途中で停止する場合は`Ctrl-C`を押してください。停止時は、指定した各障害物ロボットへゼロ速度を送信してから、rosbag record、ナビゲーション、gazeboを終了します。
+各回は`/<target-robot>/move_base/result`を受信すると終了し、次の回へ進みます。resultを受信できない場合は、ゴールパブリッシュ後`--timeout`で指定した秒数が経過するとその回を終了します。途中で停止する場合は`Ctrl-C`を押してください。停止時は、指定した各障害物ロボットへゼロ速度を送信してから、rosbag record、ナビゲーション、gazeboを終了します。
