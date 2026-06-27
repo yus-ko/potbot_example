@@ -161,6 +161,8 @@ PotbotLocalPlanner:
 --obstacle robot_1:0.2:0.5 --obstacle robot_2:0.1:-0.3
 ```
 
-rosbagファイルは`~/.ros/potbot_example/bags/`に保存されます。ファイル名は`<launchファイル名>_<日時>_runNN.bag`です。記録対象には`/clock`、`/tf`、`/tf_static`、制御対象ロボットの`odom`、`scan`、`cmd_vel`、`goal`、`map`、move_base関連トピック、各障害物ロボットの`odom`、`scan`、`cmd_vel`、深度点群トピックが含まれます。
+rosbagファイルは`~/.ros/potbot_example/bags/`に保存されます。ファイル名は`<launchファイル名>_<日時>_runNN.bag`です。このbagファイルは`scripts/matlab_scripts/rosbag`のMATLABスクリプトで使用することを想定しています。
+
+記録対象には、`bag_open.m`で読み込むトピック種別に合わせて、`/clock`、`/tf`、`/tf_static`、`/gazebo/model_states`、制御対象ロボットと`--obstacle`で指定した各ロボットの`odom`、`cmd_vel`、`path`、`imu/data`、`map`、move_baseのplan系トピック、potential field系トピックが含まれます。実際にMATLABで読み込むトピック名は、使用するbagに合わせて`.m`ファイル側で変更してください。
 
 各回は`/<target-robot>/move_base/result`を受信すると終了し、次の回へ進みます。resultを受信できない場合は、ゴールパブリッシュ後`--timeout`で指定した秒数が経過するとその回を終了します。途中で停止する場合は`Ctrl-C`を押してください。停止時は、指定した各障害物ロボットへゼロ速度を送信してから、rosbag record、ナビゲーション、gazeboを終了します。

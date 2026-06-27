@@ -186,23 +186,34 @@ build_rosbag_topics() {
     printf '/clock\n'
     printf '/tf\n'
     printf '/tf_static\n'
-    printf '/%s/odom\n' "${target_robot}"
-    printf '/%s/scan\n' "${target_robot}"
-    printf '/%s/cmd_vel\n' "${target_robot}"
-    printf '/%s/goal\n' "${target_robot}"
-    printf '/%s/map\n' "${target_robot}"
-    printf '/%s/move_base/GlobalPlanner/plan\n' "${target_robot}"
-    printf '/%s/move_base/local_costmap/costmap\n' "${target_robot}"
-    printf '/%s/camera/depth/points/obstacles\n' "${target_robot}"
+    printf '/gazebo/model_states\n'
+    print_matlab_topics_for_robot "${target_robot}"
 
     for spec in "${obstacle_specs[@]}"; do
       IFS=":" read -r namespace _linear _angular <<<"${spec}"
-      printf '/%s/odom\n' "${namespace}"
-      printf '/%s/scan\n' "${namespace}"
-      printf '/%s/cmd_vel\n' "${namespace}"
-      printf '/%s/camera/depth/points/obstacles\n' "${namespace}"
+      print_matlab_topics_for_robot "${namespace}"
     done
   } | unique_topics
+}
+
+print_matlab_topics_for_robot() {
+  local namespace="$1"
+
+  printf '/%s/odom\n' "${namespace}"
+  printf '/%s/cmd_vel\n' "${namespace}"
+  printf '/%s/path\n' "${namespace}"
+  printf '/%s/imu/data\n' "${namespace}"
+  printf '/%s/map\n' "${namespace}"
+
+  printf '/%s/move_base/DWAPlannerROS/local_plan\n' "${namespace}"
+  printf '/%s/move_base/DWAPlannerROS/global_plan\n' "${namespace}"
+  printf '/%s/move_base/NavfnROS/plan\n' "${namespace}"
+  printf '/%s/move_base/GlobalPlanner/plan\n' "${namespace}"
+  printf '/%s/move_base/PotbotLocalPlanner/local_plan\n' "${namespace}"
+  printf '/%s/move_base/PotbotLocalPlanner/global_plan\n' "${namespace}"
+
+  printf '/%s/move_base/potbot/potential_field/field/potential\n' "${namespace}"
+  printf '/%s/move_base/PotbotLocalPlanner/potential_field/field/potential\n' "${namespace}"
 }
 
 twist_message() {
