@@ -117,11 +117,9 @@ PotbotLocalPlanner:
 
 `scripts/run_sim_nav_record.sh`を使用すると、gazebo、ナビゲーション、主要トピックのrosbag record、ゴールポーズのパブリッシュ、移動障害物ロボットへの速度指令をまとめて実行できます。
 
-このスクリプトは、ros melodicと`potbot_example`が使用可能な環境で実行します。このPCで実行確認する場合は、`potbot_melodic`コンテナ内で実行してください。
-
+このスクリプトは、ros melodicと`potbot_example`が使用可能な環境で実行します。
+`potbot_example/`ディレクトリ内で以下を実行して使用方法を確認できます。
 ```bash
-docker exec -it potbot_melodic bash
-cd /home/rtx3090/potbot/melodic/catkin_ws/src/potbot_example
 ./scripts/run_sim_nav_record.sh --help
 ```
 
