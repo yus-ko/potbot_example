@@ -5,7 +5,7 @@
 
 # シミュレーション再現手順
 
-この手順は、`potbot_example`リポジトリのコミット[5c26482](https://github.com/yus-ko/potbot_example/commit/5c264822179a903ae0dd307a7c32393a2774ceee)時点の構成に基づいて説明しています。
+この手順は、`potbot_example`リポジトリのコミット[5c26482](https://github.com/yus-ko/potbot_example/tree/5c264822179a903ae0dd307a7c32393a2774ceee)時点の構成に基づいて説明しています。
 
 ## gazeboの起動
 以下のコマンドで、提出論文の各図に対応するTurtleBot3のGazeboシミュレーションを起動できます。
