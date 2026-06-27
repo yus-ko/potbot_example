@@ -88,3 +88,27 @@ angular:
 
 ## ナビゲーションの起動
 [gazebo](#gazeboの起動)を行った後、以下のコマンドでturtlebot3のナビゲーションプログラムを実行できます。
+
+```bash
+roslaunch potbot_example turtlebot3_navigation.launch
+```
+
+制御対象ロボットは、`potbot_example/launch/turtlebot3_navigation.launch:14`の`multi_robot`で指定します。デフォルト値は`robot_0`です。`multi_robot`の値は、フレームID、センサートピック、速度指令トピック、ゴールトピックに反映されます（`potbot_example/launch/turtlebot3_navigation.launch:20-27`）。また、ナビゲーション関連ノードは`potbot_example/launch/turtlebot3_navigation.launch:43`で`multi_robot`のネームスペース内に起動されます。
+
+例えば、制御対象を`robot_1`に変更する場合は、起動時に以下のように指定します。
+
+```bash
+roslaunch potbot_example turtlebot3_navigation.launch multi_robot:=robot_1
+```
+
+`PotbotLocalPlanner`のパラメーターは、`potbot_example/launch/turtlebot3_navigation.launch:90`で指定している`potbot_example/config/navigation/optimal_path_follower.yaml`を編集して変更します。このYAMLは`potbot_example/launch/navigation/move_base.launch:36`で読み込まれます。
+
+```yaml
+base_local_planner: potbot_nav/PotbotLocalPlanner
+
+PotbotLocalPlanner:
+  controller_name: potbot_nav/OPF
+  recover_distance: 0.01
+```
+
+速度や停止距離などの制御パラメーターは、`potbot_example/config/navigation/optimal_path_follower.yaml:7-13`の`controller`、および`potbot_example/config/navigation/optimal_path_follower.yaml:15-20`の`recover`で変更できます。`move_base`側では、`potbot_example/launch/navigation/move_base.launch:37-38`で`PotbotLocalPlanner/controller/frame_id_global`と`PotbotLocalPlanner/path_planner_name`も設定しています。
