@@ -8,7 +8,7 @@
 この手順は、`potbot_example`リポジトリのコミット[5c26482](https://github.com/yus-ko/potbot_example/tree/5c264822179a903ae0dd307a7c32393a2774ceee)時点の構成に基づいて説明しています。
 
 ## gazeboの起動
-以下のコマンドで、提出論文の各図に対応するTurtleBot3のGazeboシミュレーションを起動できます。
+以下のコマンドで、提出論文の各図に対応するturtlebot3のgazeboシミュレーションを起動できます。
 
 | 対応図 | 実行コマンド |
 | --- | --- |
@@ -62,7 +62,7 @@
 サイズは`collision`と`visual`の2箇所で設定されています。`collision`のみを変更した場合、Gazebo GUI上の表示サイズは変更されないため注意してください。
 
 ## 障害物ロボットの動かし方
-[gazebo](#gazeboの起動)では複数台のturtlebot3を起動できます。それぞれのturtlebot3にはネームスペースが設定されており、制御対象のロボットには`robot_0`、移動障害物ロボットには`robot_1`以降の番号を割り当てています。例えば、`multi_robot_1.launch`において`robot_1`付のcmd_velトピックをパブリッシュすることで障害物ロボットを動かすことができます。  
+[gazeboの起動](#gazeboの起動)では複数台のturtlebot3を起動できます。それぞれのturtlebot3にはネームスペースが設定されており、制御対象のロボットには`robot_0`、移動障害物ロボットには`robot_1`以降の番号を割り当てています。例えば、`multi_robot_1.launch`において`robot_1`付のcmd_velトピックをパブリッシュすることで障害物ロボットを動かすことができます。  
 並進速度0.2[m/s]、回転速度0.5[m/s]で動かすコマンド例；
 ```bash
 rostopic pub --once /robot_1/cmd_vel geometry_msgs/Twist "linear:
@@ -87,7 +87,7 @@ angular:
 ```
 
 ## ナビゲーションの起動
-[gazebo](#gazeboの起動)を行った後、以下のコマンドでturtlebot3のナビゲーションプログラムを実行できます。
+[gazeboの起動](#gazeboの起動)を行った後、以下のコマンドでturtlebot3のナビゲーションプログラムを実行できます。
 
 ```bash
 roslaunch potbot_example turtlebot3_navigation.launch
