@@ -248,12 +248,12 @@ publish_zero_obstacles() {
 }
 
 cleanup_run() {
-  publish_zero_obstacles
-
   for pid in "${obstacle_pids[@]}"; do
     stop_pid "${pid}"
   done
   obstacle_pids=()
+
+  publish_zero_obstacles
   active_obstacle_names=()
 
   stop_pid "${rosbag_pid}"
