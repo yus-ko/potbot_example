@@ -112,3 +112,55 @@ PotbotLocalPlanner:
 ```
 
 速度や停止距離などの制御パラメーターは、`potbot_example/config/navigation/optimal_path_follower.yaml:7-13`の`controller`、および`potbot_example/config/navigation/optimal_path_follower.yaml:15-20`の`recover`で変更できます。`move_base`側では、`potbot_example/launch/navigation/move_base.launch:37-38`で`PotbotLocalPlanner/controller/frame_id_global`と`PotbotLocalPlanner/path_planner_name`も設定しています。
+
+## シミュレーション・ナビゲーション・rosbag recordの一括実行
+
+`scripts/run_sim_nav_record.sh`を使用すると、gazebo、ナビゲーション、主要トピックのrosbag record、ゴールポーズのパブリッシュ、移動障害物ロボットへの速度指令をまとめて実行できます。
+
+このスクリプトは、ros melodicと`potbot_example`が使用可能な環境で実行します。このPCで実行確認する場合は、`potbot_melodic`コンテナ内で実行してください。
+
+```bash
+docker exec -it potbot_melodic bash
+cd /home/rtx3090/potbot/melodic/catkin_ws/src/potbot_example
+./scripts/run_sim_nav_record.sh --help
+```
+
+基本的な実行例は以下の通りです。
+
+```bash
+./scripts/run_sim_nav_record.sh \
+  --launch multi_robot_4.launch \
+  --count 1 \
+  --target-robot robot_0 \
+  --goal-x 2.0 \
+  --goal-y -2.0 \
+  --goal-yaw 0.0 \
+  --obstacle robot_1:0.2:0.5 \
+  --obstacle robot_2:0.1:-0.3 \
+  --obstacle robot_3:0.0:0.4
+```
+
+引数は以下の通りです。
+
+| 引数 | 説明 |
+| --- | --- |
+| `--launch` | gazeboで起動するlaunchファイル名を指定します。例: `multi_robot_1.launch` |
+| `--count` | シミュレーション全体の実行回数を指定します。各回でgazebo、ナビゲーション、rosbag recordを起動し直します。 |
+| `--target-robot` | 制御対象ロボットのネームスペースを指定します。省略時は`robot_0`です。 |
+| `--goal-x` | mapフレーム上のゴール位置x座標を指定します。 |
+| `--goal-y` | mapフレーム上のゴール位置y座標を指定します。 |
+| `--goal-yaw` | mapフレーム上のゴール姿勢yaw角[rad]を指定します。 |
+| `--obstacle` | 移動障害物ロボットの速度を`ネームスペース:並進速度:回転速度`形式で指定します。複数回指定できます。 |
+| `--help` | 使用方法を表示します。 |
+
+`--target-robot`で指定したロボットに対して、`turtlebot3_navigation.launch multi_robot:=<ネームスペース>`が起動されます。また、ゴールポーズは`/<ネームスペース>/goal`へ`geometry_msgs/PoseStamped`としてパブリッシュされます。
+
+`--obstacle`は移動障害物ロボットごとに個別の速度を指定できます。例えば、`robot_1`を前進しながら左回転、`robot_2`を低速で右回転させる場合は以下のように指定します。
+
+```bash
+--obstacle robot_1:0.2:0.5 --obstacle robot_2:0.1:-0.3
+```
+
+rosbagファイルは`~/.ros/potbot_example/bags/`に保存されます。ファイル名は`<launchファイル名>_<日時>_runNN.bag`です。記録対象には`/clock`、`/tf`、`/tf_static`、制御対象ロボットの`odom`、`scan`、`cmd_vel`、`goal`、`map`、move_base関連トピック、各障害物ロボットの`odom`、`scan`、`cmd_vel`、深度点群トピックが含まれます。
+
+各回は`/<target-robot>/move_base/result`を受信すると終了し、次の回へ進みます。途中で停止する場合は`Ctrl-C`を押してください。停止時は、指定した各障害物ロボットへゼロ速度を送信してから、rosbag record、ナビゲーション、gazeboを終了します。
