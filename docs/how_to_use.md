@@ -1,6 +1,8 @@
 # 前提条件
 - ros melodicがインストール済み
+  - https://wiki.ros.org/melodic/Installation/Ubuntu
 - potbot_exampleとその依存パッケージがインストールおよびビルド済み
+  - [インストール方法](../README.md)
 - 基本的なrosコマンド(rostopic, roslaunch, etc.)を使用可能
 
 # シミュレーション再現手順
@@ -62,7 +64,7 @@
 サイズは`collision`と`visual`の2箇所で設定されています。`collision`のみを変更した場合、Gazebo GUI上の表示サイズは変更されないため注意してください。
 
 ## 障害物ロボットの動かし方
-[gazeboの起動](#gazeboの起動)では複数台のturtlebot3を起動できます。それぞれのturtlebot3にはネームスペースが設定されており、制御対象のロボットには`robot_0`、移動障害物ロボットには`robot_1`以降の番号を割り当てています。例えば、`multi_robot_1.launch`において`robot_1`付のcmd_velトピックをパブリッシュすることで障害物ロボットを動かすことができます。  
+[上記の方法](#gazeboの起動)では複数台のturtlebot3を起動できます。それぞれのturtlebot3にはネームスペースが設定されており、制御対象のロボットには`robot_0`、移動障害物ロボットには`robot_1`以降の番号を割り当てています。例えば、`multi_robot_1.launch`において`robot_1`付のcmd_velトピックをパブリッシュすることで障害物ロボットを動かすことができます。  
 並進速度0.2[m/s]、回転速度0.5[m/s]で動かすコマンド例；
 ```bash
 rostopic pub --once /robot_1/cmd_vel geometry_msgs/Twist "linear:
