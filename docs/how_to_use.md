@@ -7,7 +7,7 @@
 
 # シミュレーション再現手順
 
-この手順は、`potbot_example`リポジトリのコミット[5c26482](https://github.com/yus-ko/potbot_example/tree/5c264822179a903ae0dd307a7c32393a2774ceee)時点の構成に基づいて説明しています。
+この手順は、`potbot_example`リポジトリのコミット[d2ca7d6](https://github.com/yus-ko/potbot_example/tree/d2ca7d6918123d27c01c2b1f04da13a1329f8a20)時点の構成に基づいて説明しています。
 
 ## gazeboの起動
 以下のコマンドで、提出論文の各図に対応するturtlebot3のgazeboシミュレーションを起動できます。
@@ -113,7 +113,20 @@ PotbotLocalPlanner:
   recover_distance: 0.01
 ```
 
-速度や停止距離などの制御パラメーターは、`potbot_example/config/navigation/optimal_path_follower.yaml:7-13`の`controller`、および`potbot_example/config/navigation/optimal_path_follower.yaml:15-20`の`recover`で変更できます。`move_base`側では、`potbot_example/launch/navigation/move_base.launch:37-38`で`PotbotLocalPlanner/controller/frame_id_global`と`PotbotLocalPlanner/path_planner_name`も設定しています。
+速度や停止距離などの制御パラメーターは、`potbot_example/config/navigation/optimal_path_follower.yaml:18-35`の`controller`、および`potbot_example/config/navigation/optimal_path_follower.yaml:55-66`の`recover`で変更できます。`move_base`側では、`potbot_example/launch/navigation/move_base.launch:37-38`で`PotbotLocalPlanner/controller/frame_id_global`と`PotbotLocalPlanner/path_planner_name`も設定しています。
+
+障害物の位置・速度予測に関するパラメーターは、`potbot_example/config/navigation/local_costmap_params.yaml:28-58`の`state_layer`で変更できます。
+
+```yaml
+local_costmap:
+  plugins: 
+    - {name: state_layer, type: "potbot_nav::StateLayer"}
+  state_layer:
+    state_estimator: "Unscented Kalman Filter"
+    prediction_time: 2.5
+```
+
+このYAMLは`potbot_example/launch/navigation/move_base.launch:58`で読み込まれ、ファイルパスは`potbot_example/launch/turtlebot3_navigation.launch:85`で指定している`potbot_example/config/navigation/local_costmap_params.yaml`です。`state_estimator`で予測に用いるアルゴリズム（Unscented Kalman Filter）を指定し、`prediction_time`で予測時間、`max_estimated_linear_velocity`と`max_estimated_angular_velocity`で推定する障害物の並進・回転速度の上限、`sigma_p`・`sigma_q`・`sigma_r`でUKFのプロセスノイズ・観測ノイズ等の分散パラメーターを設定します。
 
 ## シミュレーション・ナビゲーション・rosbag recordの一括実行
 
