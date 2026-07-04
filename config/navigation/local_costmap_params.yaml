@@ -23,13 +23,36 @@ local_costmap:
     # camera: {sensor_frame: camera_link, data_type: PointCloud2, topic: camera/depth/points, marking: true, clearing: true, min_obstacle_height: 0.05}
     # lidar: {sensor_frame: base_scan, data_type: LaserScan, topic: scan, marking: false, clearing: true}
     # camera: {sensor_frame: camera_link, data_type: PointCloud2, topic: camera/depth/points, marking: false, clearing: true, min_obstacle_height: 0.05}
-    
+  
+  # UKFによる障害物予測
   state_layer:
-    observation_sources: model
-    # lidar: {sensor_frame: base_scan, data_type: LaserScan, topic: scan, marking: true, clearing: true}
+    enabled: true
+    footprint_clearing_enabled: true
+
+    observation_sources: lidar
+    lidar: {sensor_frame: base_scan, data_type: LaserScan, topic: scan, marking: true, clearing: true}
+
+    # observation_sources: pcl
     # pcl: {sensor_frame: camera_link, data_type: PointCloud2, topic: camera/depth/points, marking: true, clearing: true, min_obstacle_height: 0.05}
+
+    # observation_sources: camera
     # camera: {sensor_frame: camera_link, data_type: Image, topic: camera/rgb/image_raw, topic_depth: camera/depth/image_raw, topic_info: camera/rgb/camera_info, marking: true, clearing: true, min_obstacle_height: 0.05}
-    model: {data_type: ModelStates}
+
+    # observation_sources: model
+    # model: {data_type: ModelStates}
+
+    state_estimator: "Unscented Kalman Filter"
     prediction_time: 2.5
     # prediction_time: 0
-  
+
+    max_estimated_linear_velocity: 1.0
+    max_estimated_angular_velocity: 2.0
+    max_obstacle_height: 2.0
+    sigma_p: 1.0
+    sigma_q: 1.0e-05
+    sigma_r: 1.0e-05
+
+    apply_localmap_threshold_2d_size: 1.5
+    euclidean_cluster_tolerance: 0.2
+    euclidean_min_cluster_size: 50
+    kappa: 0.0
